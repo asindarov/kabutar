@@ -77,15 +77,3 @@ public class TopicController : ControllerBase
         return NoContent();
     }
 }
-
-/*
-
-    return new Topic($"name")
-
-    return new Publish(new Message("message content"))
-        .WithHttpClient(httpClient)
-        .Send();
-        
-    
-
- */
