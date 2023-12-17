@@ -1,4 +1,6 @@
-﻿namespace Kabutar.Server.Dtos;
+﻿using Kabutar.Server.Features.Servers.Dto;
+
+namespace Kabutar.Server.Features.Topics.Dto;
 
 public class TopicDto
 {

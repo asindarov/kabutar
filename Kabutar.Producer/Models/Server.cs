@@ -12,4 +12,6 @@ public class Server
     public string ServerUri { get; set; }
     
     // public IList<Topic> Topics { get; set; }
+
+    public static Server Empty => new Server(string.Empty);
 }

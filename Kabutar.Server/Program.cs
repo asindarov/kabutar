@@ -1,3 +1,4 @@
+using System.Reflection;
 using Kabutar.Server.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<KabutarDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Kabutar")));
+
+builder.Services
+    .AddMediatR(
+        options => 
+            options
+                .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

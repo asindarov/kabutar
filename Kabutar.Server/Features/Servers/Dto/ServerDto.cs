@@ -1,4 +1,4 @@
-﻿namespace Kabutar.Server.Dtos;
+﻿namespace Kabutar.Server.Features.Servers.Dto;
 
 public class ServerDto
 {

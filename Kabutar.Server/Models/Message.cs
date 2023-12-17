@@ -1,5 +1,6 @@
 ﻿using System.Text;
-using Kabutar.Server.Dtos;
+using Kabutar.Server.Features.Messages.Dto;
+using Kabutar.Server.Features.Messages.Requests.PublishMessage;
 
 namespace Kabutar.Server.Models;
 
@@ -15,9 +16,9 @@ public class Message
 
     public bool IsProcessed { get; set; }
 
-    internal Message FromMessageDto(MessageDto messageDto)
+    internal Message FromPublishMessageRequest(PublishMessageRequest request)
     {
-        Data = messageDto.Data;
+        Data = request.Data;
         return this;
     }
 

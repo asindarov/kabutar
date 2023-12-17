@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Kabutar.Producer.Constants;
 
@@ -21,18 +22,16 @@ public class Publish
         return this;
     }
     
-    public async Task<HttpResponseMessage> SendAsync()
+    public async Task<DeliveryResult?> StartAsync()
     {
-        var json = JsonSerializer.Serialize<Message>(_message);
-        using var message = new StringContent(JsonSerializer.Serialize<Message>(_message), Encoding.UTF8, "application/json");
+        // var json = JsonSerializer.Serialize<Message>(_message);
+        // using var message = new StringContent(JsonSerializer.Serialize<Message>(_message), Encoding.UTF8, "application/json");
         
-        var requestUrl = $"{URI_CONSTANTS.BASEURL}/{URI_CONSTANTS.TOPICS}/{_message.Topic.Name}";
-        var response = await _httpClient.PostAsync(requestUrl, message);
+        var requestUrl = new Uri($"{URI_CONSTANTS.BASEURL}/{URI_CONSTANTS.TOPICS}/{_message.Topic.Name}/{URI_CONSTANTS.MESSAGES}");
+        var response = await _httpClient.PostAsJsonAsync(requestUrl, _message);
 
         response.EnsureSuccessStatusCode();
-
         
-        
-        return response;
+        return await response.Content.ReadFromJsonAsync<DeliveryResult>();
     }
 }
