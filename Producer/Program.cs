@@ -5,13 +5,21 @@ var topicName = "test";
 
 var httpClient = new HttpClient();
 
-var deliveryResult = 
+Console.WriteLine($"Producer is started");
+
+await Task.Delay(5000);
+
+for (int i = 0; true; i++)
+{
     await new Publish(
-            new Message(
-                new Topic(
-                    name: topicName,
-                    server: new Server(
-                        serverUri)),
-                data: "Hello world!"))
-    .WithHttpClient(httpClient)
-    .StartAsync();
+                new Message(
+                    new Topic(
+                        name: topicName,
+                        server: new Server(
+                            serverUri)),
+                    data: $"{i}) Hello world!"))
+        .WithHttpClient(httpClient)
+        .StartAsync();
+
+    Console.WriteLine($"Message is published {i}");
+}

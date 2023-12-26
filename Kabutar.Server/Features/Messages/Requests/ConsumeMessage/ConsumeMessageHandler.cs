@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Kabutar.Server.Features.Messages.Dto;
 using Kabutar.Server.Infrastructure;
-using Kabutar.Server.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,4 @@
-﻿using Kabutar.Server.Models;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kabutar.Server.Features.Messages.Requests.ConsumeMessage;
