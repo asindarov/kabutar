@@ -2,10 +2,9 @@
 
 public class Topic
 {
-    public Topic(string name, int serverId)
+    public Topic(string name)
     {
         Name = name;
-        ServerId = serverId;
     }
 
     public int Id { get; set; }
@@ -14,9 +13,5 @@ public class Topic
 
     public IList<Message> Messages { get; set; }
     
-    public int ServerId { get; set; } 
-    
-    public Server Server { get; set; }
-
-    public static Topic Empty => new Topic(string.Empty, int.MinValue);
+    public static Topic Empty => new Topic(string.Empty);
 }

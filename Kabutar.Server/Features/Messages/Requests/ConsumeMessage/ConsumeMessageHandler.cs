@@ -19,17 +19,6 @@ public class ConsumeMessageHandler : IRequestHandler<ConsumeMessageRequest, Cons
     
     public async Task<ConsumeMessageResponse> Handle(ConsumeMessageRequest request, CancellationToken cancellationToken)
     {
-        var server =
-            await _dbContext.Servers
-                .FirstOrDefaultAsync(
-                    server => server.ServerUri == request.ServerUri,
-                    cancellationToken: cancellationToken);
-
-        if (server is null)
-        {
-            throw new Exception($"{nameof(server)} is not found!");
-        }
-        
         var topic = 
             await _dbContext.Topics
                 .FirstOrDefaultAsync(

@@ -1,7 +1,7 @@
 ﻿using Kabutar.Consumer;
 
-var topicName = "test";
-var serverUri = "http://localhost:5095";
+var topicName = "test2";
+var serverUri = "http://localhost:80";
 
 var httpClient = new HttpClient();
 
@@ -18,8 +18,7 @@ while(true)
        await new Consume(
                 new Topic(
                     name: topicName,
-                    server: new Server(
-                        serverUri: serverUri)))
+                    serverUri: serverUri))
          .WithHttpClient(httpClient)
          .StartAsync();
 

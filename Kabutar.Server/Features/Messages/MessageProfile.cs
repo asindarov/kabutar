@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Kabutar.Server.Features.Messages.Dto;
-using Kabutar.Server.Features.Servers.Dto;
 using Kabutar.Server.Features.Topics.Dto;
 using Kabutar.Server.Models;
 
@@ -12,6 +11,5 @@ public class MessageProfile : Profile
     {
         CreateMap<Message, MessageDto>();
         CreateMap<Topic, TopicDto>();
-        CreateMap<Models.Server, ServerDto>();
     }
 }

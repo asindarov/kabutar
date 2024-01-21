@@ -22,7 +22,7 @@ public class Publish
     
     public async Task<DeliveryResult?> StartAsync()
     {
-        var requestUrl = new Uri($"{URI_CONSTANTS.BASEURL}/{URI_CONSTANTS.TOPICS}/{_message.Topic.Name}/{URI_CONSTANTS.MESSAGES}");
+        var requestUrl = new Uri($"{_message.Topic.ServerUri}/{URI_CONSTANTS.TOPICS}/{_message.Topic.Name}/{URI_CONSTANTS.MESSAGES}");
         var response = await _httpClient.PostAsJsonAsync(requestUrl, _message);
 
         response.EnsureSuccessStatusCode();

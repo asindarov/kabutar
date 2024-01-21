@@ -4,15 +4,28 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Configuration.AddEnvironmentVariables();
+
+var connectionString = builder.Configuration.GetConnectionString("Kabutar");
+
+if (builder.Configuration["DB_CONNECTIONSTRING"] is not null)
+{
+    connectionString = builder.Configuration["DB_CONNECTIONSTRING"].ToString();
+}
+
+var applicationUrl = "http://*:8080";
+
+if (builder.Configuration["KABUTAR_BASE_URI"] is not null)
+{
+    applicationUrl = builder.Configuration["KABUTAR_BASE_URI"].ToString();
+}
+
 builder.Services.AddDbContext<KabutarDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Kabutar")));
+    options.UseNpgsql(connectionString));
 
 builder.Services
     .AddMediatR(
@@ -24,7 +37,11 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var scope = app.Services.CreateScope();
+var db = scope.ServiceProvider.GetService<KabutarDbContext>();
+db.Database.EnsureDeleted();
+await db.Database.MigrateAsync();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -37,4 +54,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Run(applicationUrl);

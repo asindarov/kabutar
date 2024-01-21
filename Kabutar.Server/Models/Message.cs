@@ -28,11 +28,4 @@ public class Message
 
         return this;
     }
-
-    internal Message AndWithServer(Server server)
-    {
-        Topic.Server = server;
-
-        return this;
-    }
 }

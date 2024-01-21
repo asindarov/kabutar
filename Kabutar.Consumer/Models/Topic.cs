@@ -2,13 +2,13 @@
 
 public class Topic
 {
-    public Topic(string name, Server server)
+    public Topic(string name, string serverUri)
     {
         Name = name;
-        Server = server;
+        ServerUri = serverUri;
     }
     
     public string Name { get; set; }
 
-    public Server Server { get; set; }   
+    public string ServerUri { get; set; }   
 }

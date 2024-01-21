@@ -21,13 +21,6 @@ public class CreateTopicHandler : IRequestHandler<CreateTopicRequest, CreateTopi
     }
     public async Task<CreateTopicResponse> Handle(CreateTopicRequest request, CancellationToken cancellationToken)
     {
-        var server = await _dbContext.Servers.FirstOrDefaultAsync(server => server.ServerUri == request.ServerUri, cancellationToken: cancellationToken);
-
-        if (server is null)
-        {
-            throw new Exception($"{nameof(server)} is not found!");
-        }
-        
         var doesTopicExistWithTopicName = await _dbContext.Topics.AnyAsync(topic => topic.Name == request.TopicName, cancellationToken: cancellationToken);
 
         if (doesTopicExistWithTopicName)
@@ -35,7 +28,7 @@ public class CreateTopicHandler : IRequestHandler<CreateTopicRequest, CreateTopi
             throw new Exception($"{nameof(Topic)} with topic name - {request.TopicName} is already exists. Please create topic with new name!");
         }
 
-        var topic = new Topic(request.TopicName, server.Id);
+        var topic = new Topic(request.TopicName);
 
         await _dbContext.Topics.AddAsync(topic, cancellationToken);
 

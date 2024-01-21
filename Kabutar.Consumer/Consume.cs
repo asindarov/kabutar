@@ -24,7 +24,7 @@ public class Consume
     {
         var requestUri = 
             new UriBuilder(
-                $"{URI_CONSTANTS.BASEURL}/{URI_CONSTANTS.TOPICS}/{_topic.Name}?{URI_CONSTANTS.SERVERURI}={_topic.Server.ServerUri}")
+                $"{_topic.ServerUri}/{URI_CONSTANTS.TOPICS}/{_topic.Name}")
                 .Uri;
 
         var messages = await _httpClient.GetFromJsonAsync<DeliveryResult>(requestUri);

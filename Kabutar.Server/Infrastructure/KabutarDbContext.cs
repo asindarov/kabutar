@@ -18,5 +18,4 @@ public class KabutarDbContext : DbContext
 
     public virtual DbSet<Message> Messages { get; set; }
     public virtual DbSet<Topic> Topics { get; set; }
-    public virtual DbSet<Models.Server> Servers { get; set; }
 }

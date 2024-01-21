@@ -15,8 +15,8 @@ public class ConsumeMessageController : ControllerBase
     }
     
     [HttpGet("{topicName}")]
-    public async Task<ConsumeMessageResponse> ConsumeMessages([FromRoute] string topicName, [FromQuery] string serverUri)
+    public async Task<ConsumeMessageResponse> ConsumeMessages([FromRoute] string topicName)
     {
-        return await _mediator.Send(new ConsumeMessageRequest(serverUri, topicName));
+        return await _mediator.Send(new ConsumeMessageRequest(topicName));
     }
 }

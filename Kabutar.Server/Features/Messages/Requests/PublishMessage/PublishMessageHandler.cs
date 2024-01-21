@@ -20,14 +20,6 @@ public class PublishMessageHandler : IRequestHandler<PublishMessageRequest, Publ
     
     public async Task<PublishMessageResponse> Handle(PublishMessageRequest request, CancellationToken cancellationToken)
     {
-        var server =
-            await _dbContext.Servers.FirstOrDefaultAsync(server => server.ServerUri == request.Topic.Server.ServerUri, cancellationToken: cancellationToken);
-
-        if (server is null)
-        {
-            throw new Exception($"{nameof(server)} is not found!");
-        }
-        
         var topic = 
             await _dbContext.Topics.FirstOrDefaultAsync(topic => topic.Name == request.Topic.Name, cancellationToken: cancellationToken);
 
@@ -38,8 +30,7 @@ public class PublishMessageHandler : IRequestHandler<PublishMessageRequest, Publ
 
         var newMessage = new Message()
             .FromPublishMessageRequest(request)
-            .WithTopic(topic)
-            .AndWithServer(server);
+            .WithTopic(topic);
 
         await _dbContext.Messages.AddAsync(newMessage, cancellationToken);
 

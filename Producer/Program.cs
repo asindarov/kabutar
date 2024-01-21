@@ -1,7 +1,7 @@
 ﻿using Kabutar.Producer;
 
-var serverUri = "http://localhost:5095";
-var topicName = "test";
+var serverUri = "http://localhost:80";
+var topicName = "test2";
 
 var httpClient = new HttpClient();
 
@@ -15,11 +15,25 @@ for (int i = 0; true; i++)
                 new Message(
                     new Topic(
                         name: topicName,
-                        server: new Server(
-                            serverUri)),
+                        serverUri: serverUri),
                     data: $"{i}) Hello world!"))
         .WithHttpClient(httpClient)
         .StartAsync();
 
     Console.WriteLine($"Message is published {i}");
 }
+
+/*
+    var newMessage = new Message(
+                    new Topic(
+                        name: topicName,
+                        server: new Server(
+                            serverUri)),
+                    data: $"{i}) Hello world!");
+                    
+     await new HttpRequest(
+        new HttpClient(),   
+        new Publish(newMessage);
+    )
+    .SendAsync();
+ */

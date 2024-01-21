@@ -1,0 +1,37 @@
+# this is example docker compose file to spin the kabutar message queue on docker
+version: '3.7'
+
+services:
+  kabutar-server:
+    container_name: kabutar-server
+    image: asindarov/kabutar:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5965
+      - KABUTAR_BASE_URI=http://*:8080
+      - DB_CONNECTIONSTRING=Host=db;Database=kabutar;Username=postgres;Password=postgres
+    depends_on:
+      - db
+    networks:
+      - dev
+    ports:
+      - 80:8080
+
+  db:
+    container_name: db
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    networks:
+      - dev
+
+volumes:
+  postgres_db:
+    driver: local
+
+networks:
+  dev:
+    driver: bridge
